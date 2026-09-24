@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nocturn — Gaming Hub</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;600;700;800;900&display=swap');
+:root{
+ --bg:#050505;--panel:rgba(9,10,10,.62);--line:rgba(255,255,255,.11);--text:#f6f6f6;--muted:#8d8d91;
+ --soft:#cfcfd2;--red:#ff2929;--green:#7dffb5;--blur:18px
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-6;background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.70)),url("nocturn-original-slide-bg.jpg") center/cover fixed no-repeat;transform:scale(1.02)}
+body:after{content:"";position:fixed;inset:0;z-index:-5;pointer-events:none;background:radial-gradient(circle at 50% 17%,rgba(255,255,255,.10),transparent 26%),linear-gradient(180deg,transparent 0,rgba(5,5,5,.88) 88%)}
+.wrap{width:min(1220px,92vw);margin:auto}
+header{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);background:rgba(4,4,4,.58);backdrop-filter:blur(18px)}
+.nav{height:74px;display:flex;justify-content:space-between;align-items:center}
+.logo{font:800 20px Orbitron;letter-spacing:.17em;color:#fff;text-decoration:none}.logo small{font:500 9px Inter;color:#777;letter-spacing:.18em;margin-left:8px}
+.navlinks{display:flex;gap:8px}.navlinks a{text-decoration:none;color:#999;padding:9px 12px;border-radius:8px;font-size:10px;text-transform:uppercase;letter-spacing:.15em;transition:.2s}.navlinks a:hover{background:#fff;color:#050505}
+.settings-btn{border:1px solid var(--line);background:rgba(255,255,255,.04);color:#eee;border-radius:9px;padding:9px 12px;font-size:10px;text-transform:uppercase;letter-spacing:.13em;cursor:pointer}.settings-btn:hover{background:#fff;color:#050505}
+.hero{min-height:850px;display:flex;align-items:center}
+.hero-inner{padding:120px 0 105px;max-width:900px;position:relative}
+.kicker{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:#94949a;margin-bottom:18px}
+h1{font:900 clamp(75px,13vw,165px)/.76 Orbitron;margin:0;letter-spacing:-.08em;text-decoration:underline;text-decoration-thickness:7px;text-underline-offset:14px}
+h1 span{color:#666}
+.tag{font-size:clamp(16px,2vw,23px);color:#e2e2e4;margin-top:28px}
+.desc{max-width:680px;color:#919196;line-height:1.85;font-size:14px;margin:18px 0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 15px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#eee;text-decoration:none;font-size:10px;text-transform:uppercase;letter-spacing:.14em;font-weight:800;cursor:pointer}.btn:hover{background:#fff;color:#050505}.primary{background:#fff;color:#050505;border-color:#fff}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:790px;margin-top:48px}.metric{padding:14px 15px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.035);backdrop-filter:blur(8px)}.metric b{display:block;font:700 18px Orbitron}.metric span{display:block;color:#737379;font-size:9px;text-transform:uppercase;letter-spacing:.13em;margin-top:4px}
+section{padding:100px 0}
+.head{display:flex;justify-content:space-between;align-items:end;margin-bottom:27px}.head h2{font:700 32px Orbitron;margin:0}.head p{color:#67676c;font-size:12px}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px}.search{flex:1;min-width:240px;padding:12px 14px;color:white;background:rgba(255,255,255,.035);border:1px solid var(--line);border-radius:10px;outline:none}.search:focus{border-color:#777}
+.chip{padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:rgba(255,255,255,.03);color:#909095;font-size:9px;text-transform:uppercase;letter-spacing:.12em;cursor:pointer}.chip.active,.chip:hover{background:#fff;color:#050505;border-color:#fff}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{position:relative;min-height:178px;padding:18px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.02));backdrop-filter:blur(8px);transition:.28s;overflow:hidden}.card:before{content:"";position:absolute;width:190px;height:190px;right:-90px;top:-100px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.085),transparent 70%)}.card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.28);box-shadow:0 24px 70px rgba(0,0,0,.38)}.cardtop{display:flex;justify-content:space-between}.idx{font-size:9px;color:#5c5c61;letter-spacing:.18em}.state{font-size:9px;color:#6f6f75;text-transform:uppercase;letter-spacing:.12em}.state.red{color:var(--red)}.card h3{margin:42px 0 6px;font-size:19px}.card p{font-size:11px;color:#77777c;margin:0}.open{display:inline-block;margin-top:15px;color:#eee;text-decoration:none;border-bottom:1px solid #555;padding-bottom:3px;font-size:9px;text-transform:uppercase;letter-spacing:.14em}.open:hover{border-color:white}
+.panel-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}.panel{padding:25px;border:1px solid var(--line);border-radius:15px;background:var(--panel);backdrop-filter:blur(var(--blur));box-shadow:0 20px 70px rgba(0,0,0,.25)}.panel h3{font:700 22px Orbitron;margin:0 0 8px}.panel p{color:#7e7e83;font-size:12px;line-height:1.8;margin:0 0 18px}.tiny-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.tiny{padding:10px;border:1px solid rgba(255,255,255,.08);border-radius:8px;background:rgba(255,255,255,.025);font-size:10px;color:#aaa}
+.status{display:flex;gap:9px;align-items:center;margin-top:18px;font-size:11px;color:#bbb}.dot{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 15px rgba(255,41,41,.8);animation:pulse 1.35s infinite}@keyframes pulse{50%{opacity:.4;transform:scale(.75)}}
+.log{display:grid;gap:9px}.log-item{display:grid;grid-template-columns:60px 1fr;gap:14px;padding:13px 14px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.025);backdrop-filter:blur(6px)}.date{color:#68686d;font-size:10px}.log-item span:last-child{color:#d0d0d2;font-size:12px}
+.credits{display:grid;grid-template-columns:1fr 1fr;gap:10px}.credit{padding:17px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.03)}.credit small{display:block;color:#67676b;text-transform:uppercase;letter-spacing:.15em;font-size:9px;margin-bottom:4px}.credit strong{font-size:16px}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;color:#5d5d62;font-size:10px;text-transform:uppercase;letter-spacing:.14em}.foot{display:flex;justify-content:space-between}
+.vfx-layer{position:fixed;inset:0;z-index:2;pointer-events:none;overflow:hidden}.grain{position:absolute;inset:-20%;opacity:.08;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain .25s steps(2) infinite}.scan{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);box-shadow:0 0 20px rgba(255,255,255,.07);animation:scan 9s linear infinite}.flare{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.07),transparent 67%);animation:float 14s ease-in-out infinite}.flare.one{left:-70px;top:20%}.flare.two{right:-60px;top:55%;animation-delay:-5s}.vgrid{position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:70px 70px;mask-image:linear-gradient(to bottom,black,transparent 82%)}
+@keyframes grain{0%{transform:translate3d(0,0,0)}25%{transform:translate3d(-2%,1%,0)}50%{transform:translate3d(1%,-2%,0)}75%{transform:translate3d(2%,2%,0)}100%{transform:translate3d(-1%,-1%,0)}}@keyframes scan{0%{transform:translateY(-20vh)}100%{transform:translateY(120vh)}}@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-25px)}}
+.modal{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.72);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.settings{width:min(720px,94vw);border:1px solid var(--line);border-radius:17px;background:rgba(10,10,11,.92);box-shadow:0 35px 100px rgba(0,0,0,.55);overflow:hidden}.settings-head{display:flex;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--line)}.settings-head h2{font:700 20px Orbitron;margin:0}.close{border:0;background:none;color:#888;font-size:22px;cursor:pointer}.settings-body{padding:20px 22px}.setting{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.07)}.setting:last-child{border-bottom:0}.setting b{font-size:13px}.setting p{margin:3px 0 0;color:#777;font-size:11px}.toggle{width:48px;height:26px;border-radius:999px;border:1px solid #444;background:#181818;position:relative;cursor:pointer;flex:0 0 auto}.toggle:before{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#666;transition:.2s}.toggle.on{background:#fff;border-color:#fff}.toggle.on:before{left:25px;background:#050505}
+@media(max-width:900px){.cards{grid-template-columns:1fr 1fr}.panel-grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.navlinks{display:none}.cards{grid-template-columns:1fr}.tiny-grid{grid-template-columns:1fr 1fr}.credits{grid-template-columns:1fr}.foot{flex-direction:column;gap:8px}.hero{min-height:730px}}
+</style>
+</head>
+<body>
+<div class="vfx-layer" id="vfx">
+  <div class="grain" id="grain"></div><div class="scan" id="scan"></div><div class="flare one" id="flare1"></div><div class="flare two" id="flare2"></div><div class="vgrid" id="vgrid"></div>
+</div>
+
+<header>
+ <div class="wrap nav">
+  <a href="#home" class="logo">NOCTURN<small>GAMING HUB</small></a>
+  <nav class="navlinks"><a href="#links">Links</a><a href="#random">Random</a><a href="#systems">Systems</a><a href="#updates">Updates</a><a href="#credits">Credits</a></nav>
+  <button class="settings-btn" id="settingsOpen">⚙ Settings</button>
+ </div>
+</header>
+
+<main id="home">
+<section class="hero">
+ <div class="wrap hero-inner">
+  <div class="kicker">Nocturn / 001</div>
+  <h1>NOCT<span>URN</span></h1>
+  <div class="tag">“providing one more proxy at a time”</div>
+  <p class="desc">A cinematic home for Nocturn's gaming resources, website links, entertainment, and system hubs. The structure follows the supplied presentation while the visual system is built specifically for the web.</p>
+  <div class="actions"><a class="btn primary" href="#links">Explore library ↓</a><button class="btn" id="heroSettings">Tune VFX</button></div>
+  <div class="metrics"><div class="metric"><b id="count">30</b><span>Mapped resources</span></div><div class="metric"><b>4</b><span>Categories</span></div><div class="metric"><b>24/7</b><span>Hub access</span></div><div class="metric"><b>VFX</b><span>Customizable</span></div></div>
+ </div>
+</section>
+
+<section id="links">
+ <div class="wrap">
+  <div class="head"><div><div class="kicker">Nocturn / 002</div><h2>Link Library</h2></div><p>Search · filter · launch</p></div>
+  <div class="toolbar"><input class="search" id="search" placeholder="Search resources..."><button class="chip active" data-filter="all">All</button><button class="chip" data-filter="website">Website</button><button class="chip" data-filter="game">Games</button><button class="chip" data-filter="os">OS</button><button class="chip" data-filter="entertainment">Entertainment</button></div>
+  <div class="cards" id="cards"></div>
+ </div>
+</section>
+
+
+<section id="random">
+ <div class="wrap">
+  <div class="head"><div><div class="kicker">Nocturn / 003</div><h2>Random Entertainment, Games & More</h2></div><p>Entertainment · games · proxies · more</p></div>
+  <div class="toolbar"><input class="search random-search" id="randomSearch" placeholder="Search random links..."><button class="chip random-chip active" data-random-filter="all">All</button><button class="chip random-chip" data-random-filter="entertainment">Entertainment</button><button class="chip random-chip" data-random-filter="games">Games</button><button class="chip random-chip" data-random-filter="proxy">Proxies & More</button></div>
+  <div class="cards" id="randomCards"></div>
+ </div>
+</section>
+
+<section id="systems">
+ <div class="wrap">
+  <div class="head"><div><div class="kicker">Nocturn / 004</div><h2>Systems & Extras</h2></div><p>From the slides</p></div>
+  <div class="panel-grid">
+   <article class="panel"><h3>Gaming & Entertainment</h3><p>Separate collections for game resources, entertainment, more proxies, VPNs, AI assistants, and future additions.</p><div class="tiny-grid"><div class="tiny">Game Proxies</div><div class="tiny">Entertainment</div><div class="tiny">More Proxies</div><div class="tiny">VPNs</div><div class="tiny">AI Assistants</div><div class="tiny">More coming</div></div><div class="status"><span class="dot"></span><span>Currently down indicator</span></div></article>
+   <article class="panel"><h3>OS Hub</h3><p>The slide set includes a dedicated OS section. It stays separate here for a cleaner experience.</p><div class="tiny-grid"><div class="tiny">Nebula</div><div class="tiny">Adless</div><div class="tiny">SolaraOS</div><div class="tiny">Rammerhead</div><div class="tiny">FreedomHub</div><div class="tiny">LiminalOS</div></div></article>
+  </div>
+ </div>
+</section>
+
+<section id="updates">
+ <div class="wrap">
+  <div class="head"><div><div class="kicker">Nocturn / 005</div><h2>Update Logs</h2></div><p>Modernized slide notes</p></div>
+  <div class="log"><div class="log-item"><span class="date">9/23</span><span>New changes by Sebas and Parker.</span></div><div class="log-item"><span class="date">9/22</span><span>New changes by Liam, Santi, and Parker.</span></div><div class="log-item"><span class="date">—</span><span>The website has been delayed due to a rebranding.</span></div><div class="log-item"><span class="date">—</span><span>The slides will be remade.</span></div><div class="log-item"><span class="date">—</span><span>The proxies are being replaced (all outdated and blocked).</span></div></div>
+ </div>
+</section>
+
+<section id="credits"><div class="wrap"><div class="head"><div><div class="kicker">Nocturn / 006</div><h2>Credits</h2></div><p>From the presentation</p></div><div class="credits"><div class="credit"><small>Owner</small><strong>Liam</strong></div><div class="credit"><small>Co-owner</small><strong>Sebastian</strong></div></div></div></section>
+</main>
+<footer><div class="wrap foot"><span>NOCTURN © 2026</span><span>BLACK / WHITE / CINEMATIC / GAMING</span></div></footer>
+
+<div class="modal" id="modal">
+ <div class="settings">
+  <div class="settings-head"><h2>VFX Settings</h2><button class="close" id="settingsClose">×</button></div>
+  <div class="settings-body">
+   <div class="setting"><div><b>Film Grain</b><p>Adds a subtle moving texture over the site.</p></div><div class="toggle on" data-target="grain"></div></div>
+   <div class="setting"><div><b>Scan Line</b><p>Slow cinematic light sweep across the page.</p></div><div class="toggle on" data-target="scan"></div></div>
+   <div class="setting"><div><b>Ambient Flares</b><p>Soft floating glow behind the interface.</p></div><div class="toggle on" data-target="flares"></div></div>
+   <div class="setting"><div><b>Grid Overlay</b><p>Faint technical grid inspired by the slide aesthetic.</p></div><div class="toggle on" data-target="grid"></div></div>
+   <div class="setting"><div><b>Cursor Glow</b><p>Follow-the-mouse spotlight effect.</p></div><div class="toggle on" data-target="cursor"></div></div>
+   <div class="setting"><div><b>Glass Blur</b><p>Controls the frosted-glass depth of panels.</p></div><div class="toggle on" data-target="blur"></div></div>
+  </div>
+ </div>
+</div>
+
+<script>
+const items=[["game", "GN-Math", "https://quizizz-static.s3.amazonaws.com/_media/uploadedFiles/013955bd-b5cb-42d5-8655-a09c290a4033-v2"], ["game", "Gaming Escape", "https://gaming-escape.freetls.fastly.net/apps.html"], ["game", "Shrimp/Freezenova", "https://shrimpgames.neocities.org/"], ["website", "Bull-33", "https://s3.amazonaws.com/oiop/index.html"], ["website", "Dogeub", "https://oic4.s3.amazonaws.com/index.html"], ["website", "Truffled", "http://truffle33.breadtime.com.my"], ["website", "Cherri", "https://storage.googleapis.com/mathlearning/bull-33/svg-main_4/index.svg"], ["website", "DayDream", "https://s3.amazonaws.com/t53li04c/index.html"], ["website", "Kite", "http://lessonbay.s3.amazonaws.com/index.html"], ["website", "TungTung", "https://bumeducation.cfd/"], ["website", "Aether", "https://d1xprhi2iqpbz6.cloudfront.net/study.html"], ["website", "Axiom", "https://cdn.staticdelivr.com/gh/Onex558/p2p-svg-3/main/axiomsvg5-axiomsvg3-2001.svg"], ["website", "Fern", "https://s3.dualstack.us-east-1.amazonaws.com/hgbg/index.html"], ["website", "Interstellar", "https://tbgn.s3.amazonaws.com/index.html"], ["website", "Utopia", "https://medf.s3.amazonaws.com/index.html"], ["website", "Space", "https://space.goldenhandsinc.ca/&"], ["website", "Lunar", "https://lunar.goldenhandsinc.ca/"], ["website", "Strawberri", "https://strobe.goldenhandsinc.ca/"], ["website", "Voya", "https://voya.goldenhandsinc.ca/"], ["website", "Mizu", "https://cdn.jsdelivr.net/gh/dorianhagar506-coder/mizu--lrq2df@main/mizu-4-aqng.svg"], ["website", "PeteZah", "https://9movies.cfd/"], ["website", "Frogies Arcade", "https://saugatr-education309897.eeeertwfvsgs.xyz/"], ["website", "cat class", "https://jsd-proxy.ygxz.in/gh/saugatr/Classroom-cat/images/40150d34c8/logo.svg"], ["website", "Glim", "https://axk4.s3.amazonaws.com/index.html"], ["os", "Nebula", "https://nebulaos.neocities.org/library"], ["os", "Adless", "https://studyzoned.pages.dev/"], ["os", "SolaraOS", "https://solaraos.s3.amazonaws.com/index.html"], ["os", "FreedomHub", "https://freedomhub.nothingbox.net/"], ["os", "LiminalOS", "https://d2uab53a7bkmo4.cloudfront.net/"], ["os", "Rammerhead", "https://bing.com.108.181.32.77.sslip.io/"]];
+const cards=document.getElementById('cards'),search=document.getElementById('search'),chips=[...document.querySelectorAll('.chip')];
+function render(){const q=search.value.toLowerCase(),f=document.querySelector('.chip.active').dataset.filter;const list=items.filter(x=>(f==='all'||x[0]===f)&&x[1].toLowerCase().includes(q));cards.innerHTML=list.map((x,i)=>`<article class="card"><div class="cardtop"><span class="idx">${String(i+1).padStart(2,'0')} / ${x[0].toUpperCase()}</span><span class="state ${x[1]==='Cherri'?'red':''}">${x[2] ? 'LIVE' : 'ready to link'}</span></div><h3>${x[1]}</h3><p>${x[0]==='game'?'Gaming resource':x[0]==='os'?'OS resource':'Nocturn resource'} · mapped from the PowerPoint.</p><a class="open" href="${x[2] || '#'}" ${x[2] ? 'target="_blank" rel="noopener noreferrer"' : 'onclick="showToast(\'Add the real URL for '+x[1]+' to make this live.\');return false;"'}>Open →</a></article>`).join('')||'<article class="card"><h3>No results</h3><p>Try another search or filter.</p></article>'}
+chips.forEach(c=>c.onclick=()=>{chips.forEach(x=>x.classList.remove('active'));c.classList.add('active');render()});search.oninput=render;document.getElementById('count').textContent=items.length;render();
+
+
+const randomItems=[["entertainment", "Art / Homework", "https://art.homework.technology.science.project.real3m.com/"], ["proxy", "FreedomHub", "https://freedomhub.nothingbox.net/"], ["entertainment", "SHA", "https://sha.zsrm-slo.org/"], ["proxy", "My First Link Bruh", "https://myfirstlinkbruh.feedcube.org/verify"], ["entertainment", "English", "https://english.lalani.com/"], ["entertainment", "Formula Theorem 51", "https://formula-theorem51.mathmatics.ccwu.cc/"], ["proxy", "Cloudfront Hub", "https://d2uab53a7bkmo4.cloudfront.net/"], ["games", "Quizizz Upload 013955", "http://quizizz-static.s3.amazonaws.com/_media/uploadedFiles/013955bd-b5cb-42d5-8655-a09c290a4033-v2"], ["games", "Quizizz Upload 91a140", "http://quizizz-static.s3.amazonaws.com/_media/uploadedFiles/91a1408d-67fc-4bb0-bdd0-3e447c5e5b92-v2"], ["games", "Quizizz Upload 3593eb", "http://quizizz-static.s3.amazonaws.com/_media/uploadedFiles/3593eb84-f05f-46bf-96d6-9a44f70d1114-v2"], ["games", "Quizizz Accelerate 013955", "http://quizizz-static.s3.amazonaws.com/_media/uploadedFiles/013955bd-b5cb-42d5-8655-a09c290a4033-v2"], ["games", "Quizizz Accelerate 91a140", "http://quizizz-static.s3.amazonaws.com/_media/uploadedFiles/013955bd-b5cb-42d5-8655-a09c290a4033-v2"], ["games", "Quizizz Accelerate 3593eb", "http://quizizz-static.s3.amazonaws.com/_media/uploadedFiles/013955bd-b5cb-42d5-8655-a09c290a4033-v2"], ["proxy", "Bull Lumbini", "http://bull.lumbinifashion.com.np/"], ["proxy", "Bull Has", "http://bull-has.grayareas.net/"], ["proxy", "Speedy Bull", "http://bull-has.grayareas.net/"], ["proxy", "Travel For", "http://bull-has.grayareas.net/"], ["proxy", "Bull Fiwers", "http://bull-has.grayareas.net/"], ["proxy", "Bull Espanol", "http://bull-has.grayareas.net/"], ["proxy", "Bakersfield PS", "http://bull-has.grayareas.net/"], ["proxy", "Thermowave Therapy", "http://bull-has.grayareas.net/"], ["proxy", "Danville Dyslexia Center", "http://bull-has.grayareas.net/"], ["proxy", "Magnetic Slime", "http://magnetic.slime.genovia.ro/"], ["proxy", "Kira Light Yagami", "http://magnetic.slime.genovia.ro/"], ["proxy", "Colegio San Marcel", "http://magnetic.slime.genovia.ro/"], ["proxy", "Lighting Online", "http://magnetic.slime.genovia.ro/"], ["proxy", "Love Global Tutors", "http://magnetic.slime.genovia.ro/"], ["proxy", "Campeonatos Municipales", "http://magnetic.slime.genovia.ro/"], ["proxy", "Deepee", "http://magnetic.slime.genovia.ro/"], ["proxy", "Joao Pinho", "http://magnetic.slime.genovia.ro/"], ["proxy", "PDA Corp", "http://magnetic.slime.genovia.ro/"], ["proxy", "Boston Career Counselor", "http://magnetic.slime.genovia.ro/"], ["proxy", "Celestial Galtex", "http://magnetic.slime.genovia.ro/"], ["proxy", "K12 CSP Corp", "http://magnetic.slime.genovia.ro/"], ["proxy", "K12 Cowin Engineering", "http://magnetic.slime.genovia.ro/"], ["proxy", "Pics Backriver Photography", "http://magnetic.slime.genovia.ro/"], ["proxy", "Bull Doris Safety", "http://bull.edu.doris-safety.com/"], ["proxy", "Bull Rules", "http://bull.edu.doris-safety.com/"], ["proxy", "Bull Goes In", "http://bull.edu.doris-safety.com/"], ["proxy", "Bulls Nirbika", "http://bull.edu.doris-safety.com/"], ["proxy", "Made By A Bull", "http://bull.edu.doris-safety.com/"], ["proxy", "Selenite Bull", "http://bull.edu.doris-safety.com/"], ["proxy", "Bull Film Database", "http://bull.edu.doris-safety.com/"]];
+const randomCards=document.getElementById('randomCards'),randomSearch=document.getElementById('randomSearch'),randomChips=[...document.querySelectorAll('.random-chip')];
+function renderRandom(){
+ const q=randomSearch.value.toLowerCase(),f=document.querySelector('.random-chip.active').dataset.randomFilter;
+ const list=randomItems.filter(x=>(f==='all'||x[0]===f)&&(x[1].toLowerCase().includes(q)||x[2].toLowerCase().includes(q)));
+ randomCards.innerHTML=list.map((x,i)=>`<article class="card"><div class="cardtop"><span class="idx">${String(i+1).padStart(2,'0')} / ${x[0].toUpperCase()}</span><span class="state">LINK</span></div><h3>${x[1]}</h3><p>${x[0]==='games'?'Game / quiz resource':x[0]==='entertainment'?'Entertainment resource':'Proxy / miscellaneous resource'}</p><a class="open" href="${x[2]}" target="_blank" rel="noopener noreferrer">Open →</a></article>`).join('')||'<article class="card"><h3>No results</h3><p>Try another search or filter.</p></article>';
+}
+randomChips.forEach(c=>c.onclick=()=>{randomChips.forEach(x=>x.classList.remove('active'));c.classList.add('active');renderRandom()});
+randomSearch.oninput=renderRandom;renderRandom();
+
+const modal=document.getElementById('modal');const open=()=>modal.classList.add('show');const close=()=>modal.classList.remove('show');document.getElementById('settingsOpen').onclick=open;document.getElementById('heroSettings').onclick=open;document.getElementById('settingsClose').onclick=close;modal.onclick=e=>{if(e.target===modal)close()};
+
+const state={grain:true,scan:true,flares:true,grid:true,cursor:true,blur:true};
+document.querySelectorAll('.toggle').forEach(t=>t.onclick=()=>{const key=t.dataset.target;state[key]=!state[key];t.classList.toggle('on',state[key]);apply()});
+function apply(){
+ document.getElementById('grain').style.display=state.grain?'block':'none';
+ document.getElementById('scan').style.display=state.scan?'block':'none';
+ document.getElementById('flare1').style.display=state.flares?'block':'none';
+ document.getElementById('flare2').style.display=state.flares?'block':'none';
+ document.getElementById('vgrid').style.display=state.grid?'block':'none';
+ document.documentElement.style.setProperty('--blur',state.blur?'18px':'0px');
+ if(state.cursor){document.body.dataset.cursor='on'}else{document.body.dataset.cursor='off'}
+}
+let cur=document.createElement('div');cur.style.cssText='position:fixed;width:240px;height:240px;border-radius:50%;pointer-events:none;z-index:1;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,255,255,.07),transparent 68%);mix-blend-mode:screen';document.body.appendChild(cur);
+window.addEventListener('pointermove',e=>{if(state.cursor){cur.style.display='block';cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'}else cur.style.display='none'});
+function showToast(msg){const t=document.createElement('div');t.textContent=msg;t.style.cssText='position:fixed;right:20px;bottom:20px;z-index:100;background:#fff;color:#050505;padding:12px 14px;border-radius:9px;font-size:11px;font-weight:800;box-shadow:0 15px 40px #000';document.body.appendChild(t);setTimeout(()=>t.remove(),2200)}
+apply();
+</script>
+</body>
+</html>
